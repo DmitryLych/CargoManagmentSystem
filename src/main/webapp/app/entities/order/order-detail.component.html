@@ -1,0 +1,58 @@
+
+<div *ngIf="order">
+    <h2><span jhiTranslate="cargoManagmentSystemApp.order.detail.title">Order</span> {{order.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="cargoManagmentSystemApp.order.cost">Cost</span></dt>
+        <dd>
+            <span>{{order.cost}}</span>
+        </dd>
+        <dt><span jhiTranslate="cargoManagmentSystemApp.order.downloadAddress">Download Address</span></dt>
+        <dd>
+            <span>{{order.downloadAddress}}</span>
+        </dd>
+        <dt><span jhiTranslate="cargoManagmentSystemApp.order.unloadingAddress">Unloading Address</span></dt>
+        <dd>
+            <span>{{order.unloadingAddress}}</span>
+        </dd>
+        <dt><span jhiTranslate="cargoManagmentSystemApp.order.issued">Issued</span></dt>
+        <dd>
+            <span>{{order.issued}}</span>
+        </dd>
+        <dt><span jhiTranslate="cargoManagmentSystemApp.order.completed">Completed</span></dt>
+        <dd>
+            <span>{{order.completed}}</span>
+        </dd>
+        <dt><span jhiTranslate="cargoManagmentSystemApp.order.paid">Paid</span></dt>
+        <dd>
+            <span>{{order.paid}}</span>
+        </dd>
+        <dt><span jhiTranslate="cargoManagmentSystemApp.order.customer">Customer</span></dt>
+        <dd>
+            <div *ngIf="order.customerId">
+                <a [routerLink]="['/customer', order.customerId]">{{order.customerId}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="cargoManagmentSystemApp.order.driver">Driver</span></dt>
+        <dd>
+            <div *ngIf="order.driverId">
+                <a [routerLink]="['/driver', order.driverId]">{{order.driverId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'order/'+ order.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

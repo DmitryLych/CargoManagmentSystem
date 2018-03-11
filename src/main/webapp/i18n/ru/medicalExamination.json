@@ -1,0 +1,23 @@
+
+{
+    "cargoManagmentSystemApp": {
+        "medicalExamination" : {
+            "home": {
+                "title": "Medical Examinations",
+                "createLabel": "Создать новый Medical Examination",
+                "createOrEditLabel": "Создать или отредактировать Medical Examination"
+            },
+            "created": "Новый Medical Examination создан с идентификатором {{ param }}",
+            "updated": "Medical Examination обновлен с идентификатором {{ param }}",
+            "deleted": "Medical Examination удален с идентификатором {{ param }}",
+            "delete": {
+                "question": "Вы уверены что хотите удалить Medical Examination {{ id }}?"
+            },
+            "detail": {
+                "title": "Medical Examination"
+            },
+            "validate": "Validate",
+            "driver": "Driver"
+        }
+    }
+}

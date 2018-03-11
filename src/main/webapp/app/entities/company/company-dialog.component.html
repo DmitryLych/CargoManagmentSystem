@@ -1,0 +1,84 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myCompanyLabel" jhiTranslate="cargoManagmentSystemApp.company.home.createOrEditLabel">Create or edit a Company</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!company.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="company.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="cargoManagmentSystemApp.company.companyName" for="field_companyName">Company Name</label>
+            <input type="text" class="form-control" name="companyName" id="field_companyName"
+                [(ngModel)]="company.companyName" required/>
+            <div [hidden]="!(editForm.controls.companyName?.dirty && editForm.controls.companyName?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.companyName?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="cargoManagmentSystemApp.company.address" for="field_address">Address</label>
+            <input type="text" class="form-control" name="address" id="field_address"
+                [(ngModel)]="company.address" required/>
+            <div [hidden]="!(editForm.controls.address?.dirty && editForm.controls.address?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.address?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="cargoManagmentSystemApp.company.email" for="field_email">Email</label>
+            <input type="text" class="form-control" name="email" id="field_email"
+                [(ngModel)]="company.email" required pattern="(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|&#34;(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*&#34;)@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])"/>
+            <div [hidden]="!(editForm.controls.email?.dirty && editForm.controls.email?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.email?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.email?.errors?.pattern" jhiTranslate="entity.validation.pattern" translateValues="{ pattern: 'Email' }">
+                    This field should follow pattern for "Email".
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="cargoManagmentSystemApp.company.telephoneNumber" for="field_telephoneNumber">Telephone Number</label>
+            <input type="text" class="form-control" name="telephoneNumber" id="field_telephoneNumber"
+                [(ngModel)]="company.telephoneNumber" required minlength="9"/>
+            <div [hidden]="!(editForm.controls.telephoneNumber?.dirty && editForm.controls.telephoneNumber?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.telephoneNumber?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.telephoneNumber?.errors?.minlength" jhiTranslate="entity.validation.minlength" translateValues="{ min: 9 }">
+                   This field is required to be at least 9 characters.
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="cargoManagmentSystemApp.company.user" for="field_user">User</label>
+            <select class="form-control" id="field_user" name="user" [(ngModel)]="company.userId" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="userOption.id" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.login}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

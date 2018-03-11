@@ -1,0 +1,23 @@
+
+{
+    "cargoManagmentSystemApp": {
+        "medicalExamination" : {
+            "home": {
+                "title": "Medical Examinations",
+                "createLabel": "Create a new Medical Examination",
+                "createOrEditLabel": "Create or edit a Medical Examination"
+            },
+            "created": "A new Medical Examination is created with identifier {{ param }}",
+            "updated": "A Medical Examination is updated with identifier {{ param }}",
+            "deleted": "A Medical Examination is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Medical Examination {{ id }}?"
+            },
+            "detail": {
+                "title": "Medical Examination"
+            },
+            "validate": "Validate",
+            "driver": "Driver"
+        }
+    }
+}

@@ -1,0 +1,35 @@
+
+{
+    "cargoManagmentSystemApp": {
+        "driver" : {
+            "home": {
+                "title": "Drivers",
+                "createLabel": "Создать новый Driver",
+                "createOrEditLabel": "Создать или отредактировать Driver"
+            },
+            "created": "Новый Driver создан с идентификатором {{ param }}",
+            "updated": "Driver обновлен с идентификатором {{ param }}",
+            "deleted": "Driver удален с идентификатором {{ param }}",
+            "delete": {
+                "question": "Вы уверены что хотите удалить Driver {{ id }}?"
+            },
+            "detail": {
+                "title": "Driver"
+            },
+            "firstName": "First Name",
+            "lastName": "Last Name",
+            "yearOfIssue": "Year Of Issue",
+            "address": "Address",
+            "tepephoneNumber": "Tepephone Number",
+            "email": "Email",
+            "status": "Status",
+            "driverLicense": "Driver License",
+            "medicalExamination": "Medical Examination",
+            "truck": "Truck",
+            "insurancePolicies": "Insurance Policies",
+            "company": "Company",
+            "order": "Order",
+            "user": "User"
+        }
+    }
+}

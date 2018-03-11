@@ -1,0 +1,35 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "driver",
+            "otherEntityName": "driver",
+            "relationshipType": "one-to-one",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "driverLicense"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "category",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "validate",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "specialNotes",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20180311142744",
+    "dto": "mapstruct",
+    "service": "serviceClass",
+    "entityTableName": "driver_license",
+    "jpaMetamodelFiltering": false,
+    "pagination": "pagination"
+}

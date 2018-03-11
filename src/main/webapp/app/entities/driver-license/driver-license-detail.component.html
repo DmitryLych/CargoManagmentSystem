@@ -1,0 +1,34 @@
+
+<div *ngIf="driverLicense">
+    <h2><span jhiTranslate="cargoManagmentSystemApp.driverLicense.detail.title">Driver License</span> {{driverLicense.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="cargoManagmentSystemApp.driverLicense.category">Category</span></dt>
+        <dd>
+            <span>{{driverLicense.category}}</span>
+        </dd>
+        <dt><span jhiTranslate="cargoManagmentSystemApp.driverLicense.validate">Validate</span></dt>
+        <dd>
+            <span>{{driverLicense.validate | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="cargoManagmentSystemApp.driverLicense.specialNotes">Special Notes</span></dt>
+        <dd>
+            <span>{{driverLicense.specialNotes}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'driver-license/'+ driverLicense.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

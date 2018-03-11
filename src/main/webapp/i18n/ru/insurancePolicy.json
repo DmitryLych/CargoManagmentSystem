@@ -1,0 +1,25 @@
+
+{
+    "cargoManagmentSystemApp": {
+        "insurancePolicy" : {
+            "home": {
+                "title": "Insurance Policies",
+                "createLabel": "Создать новый Insurance Policy",
+                "createOrEditLabel": "Создать или отредактировать Insurance Policy"
+            },
+            "created": "Новый Insurance Policy создан с идентификатором {{ param }}",
+            "updated": "Insurance Policy обновлен с идентификатором {{ param }}",
+            "deleted": "Insurance Policy удален с идентификатором {{ param }}",
+            "delete": {
+                "question": "Вы уверены что хотите удалить Insurance Policy {{ id }}?"
+            },
+            "detail": {
+                "title": "Insurance Policy"
+            },
+            "validate": "Validate",
+            "type": "Type",
+            "cost": "Cost",
+            "driver": "Driver"
+        }
+    }
+}

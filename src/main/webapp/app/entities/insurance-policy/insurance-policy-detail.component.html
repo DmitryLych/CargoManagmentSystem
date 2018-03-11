@@ -1,0 +1,40 @@
+
+<div *ngIf="insurancePolicy">
+    <h2><span jhiTranslate="cargoManagmentSystemApp.insurancePolicy.detail.title">Insurance Policy</span> {{insurancePolicy.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="cargoManagmentSystemApp.insurancePolicy.validate">Validate</span></dt>
+        <dd>
+            <span>{{insurancePolicy.validate | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="cargoManagmentSystemApp.insurancePolicy.type">Type</span></dt>
+        <dd>
+            <span>{{insurancePolicy.type}}</span>
+        </dd>
+        <dt><span jhiTranslate="cargoManagmentSystemApp.insurancePolicy.cost">Cost</span></dt>
+        <dd>
+            <span>{{insurancePolicy.cost}}</span>
+        </dd>
+        <dt><span jhiTranslate="cargoManagmentSystemApp.insurancePolicy.driver">Driver</span></dt>
+        <dd>
+            <div *ngIf="insurancePolicy.driverId">
+                <a [routerLink]="['/driver', insurancePolicy.driverId]">{{insurancePolicy.driverId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'insurance-policy/'+ insurancePolicy.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

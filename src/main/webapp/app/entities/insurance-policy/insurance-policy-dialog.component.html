@@ -1,0 +1,74 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myInsurancePolicyLabel" jhiTranslate="cargoManagmentSystemApp.insurancePolicy.home.createOrEditLabel">Create or edit a Insurance Policy</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!insurancePolicy.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="insurancePolicy.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="cargoManagmentSystemApp.insurancePolicy.validate" for="field_validate">Validate</label>
+            <div class="input-group">
+                <input id="field_validate" type="text" class="form-control" name="validate" ngbDatepicker  #validateDp="ngbDatepicker" [(ngModel)]="insurancePolicy.validate"
+                required/>
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-secondary" (click)="validateDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+            <div [hidden]="!(editForm.controls.validate?.dirty && editForm.controls.validate?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.validate?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="cargoManagmentSystemApp.insurancePolicy.type" for="field_type">Type</label>
+            <input type="text" class="form-control" name="type" id="field_type"
+                [(ngModel)]="insurancePolicy.type" required/>
+            <div [hidden]="!(editForm.controls.type?.dirty && editForm.controls.type?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.type?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="cargoManagmentSystemApp.insurancePolicy.cost" for="field_cost">Cost</label>
+            <input type="number" class="form-control" name="cost" id="field_cost"
+                [(ngModel)]="insurancePolicy.cost" required/>
+            <div [hidden]="!(editForm.controls.cost?.dirty && editForm.controls.cost?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.cost?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.cost?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="cargoManagmentSystemApp.insurancePolicy.driver" for="field_driver">Driver</label>
+            <select class="form-control" id="field_driver" name="driver" [(ngModel)]="insurancePolicy.driverId" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="driverOption.id" *ngFor="let driverOption of drivers; trackBy: trackDriverById">{{driverOption.id}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

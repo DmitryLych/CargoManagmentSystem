@@ -1,0 +1,30 @@
+
+{
+    "cargoManagmentSystemApp": {
+        "trailer" : {
+            "home": {
+                "title": "Trailers",
+                "createLabel": "Создать новый Trailer",
+                "createOrEditLabel": "Создать или отредактировать Trailer"
+            },
+            "created": "Новый Trailer создан с идентификатором {{ param }}",
+            "updated": "Trailer обновлен с идентификатором {{ param }}",
+            "deleted": "Trailer удален с идентификатором {{ param }}",
+            "delete": {
+                "question": "Вы уверены что хотите удалить Trailer {{ id }}?"
+            },
+            "detail": {
+                "title": "Trailer"
+            },
+            "registerSign": "Register Sign",
+            "color": "Color",
+            "trailerType": "Trailer Type",
+            "weight": "Weight",
+            "height": "Height",
+            "longest": "Longest",
+            "volume": "Volume",
+            "yearOfIssue": "Year Of Issue",
+            "truck": "Truck"
+        }
+    }
+}

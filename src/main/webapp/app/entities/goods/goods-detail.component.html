@@ -1,0 +1,44 @@
+
+<div *ngIf="goods">
+    <h2><span jhiTranslate="cargoManagmentSystemApp.goods.detail.title">Goods</span> {{goods.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="cargoManagmentSystemApp.goods.name">Name</span></dt>
+        <dd>
+            <span>{{goods.name}}</span>
+        </dd>
+        <dt><span jhiTranslate="cargoManagmentSystemApp.goods.weight">Weight</span></dt>
+        <dd>
+            <span>{{goods.weight}}</span>
+        </dd>
+        <dt><span jhiTranslate="cargoManagmentSystemApp.goods.volume">Volume</span></dt>
+        <dd>
+            <span>{{goods.volume}}</span>
+        </dd>
+        <dt><span jhiTranslate="cargoManagmentSystemApp.goods.goodsType">Goods Type</span></dt>
+        <dd>
+            <span>{{goods.goodsType}}</span>
+        </dd>
+        <dt><span jhiTranslate="cargoManagmentSystemApp.goods.order">Order</span></dt>
+        <dd>
+            <div *ngIf="goods.orderId">
+                <a [routerLink]="['/order', goods.orderId]">{{goods.orderId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'goods/'+ goods.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

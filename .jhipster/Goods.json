@@ -1,0 +1,44 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "order",
+            "otherEntityName": "order",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "weight",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "volume",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "goodsType",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20180311143047",
+    "dto": "mapstruct",
+    "service": "serviceClass",
+    "entityTableName": "goods",
+    "jpaMetamodelFiltering": false,
+    "pagination": "pagination"
+}

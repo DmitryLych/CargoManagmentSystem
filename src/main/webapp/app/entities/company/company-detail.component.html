@@ -1,0 +1,42 @@
+
+<div *ngIf="company">
+    <h2><span jhiTranslate="cargoManagmentSystemApp.company.detail.title">Company</span> {{company.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="cargoManagmentSystemApp.company.companyName">Company Name</span></dt>
+        <dd>
+            <span>{{company.companyName}}</span>
+        </dd>
+        <dt><span jhiTranslate="cargoManagmentSystemApp.company.address">Address</span></dt>
+        <dd>
+            <span>{{company.address}}</span>
+        </dd>
+        <dt><span jhiTranslate="cargoManagmentSystemApp.company.email">Email</span></dt>
+        <dd>
+            <span>{{company.email}}</span>
+        </dd>
+        <dt><span jhiTranslate="cargoManagmentSystemApp.company.telephoneNumber">Telephone Number</span></dt>
+        <dd>
+            <span>{{company.telephoneNumber}}</span>
+        </dd>
+        <dt><span jhiTranslate="cargoManagmentSystemApp.company.user">User</span></dt>
+        <dd>
+            {{company.userLogin}}
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'company/'+ company.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

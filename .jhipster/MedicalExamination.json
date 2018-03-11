@@ -1,0 +1,27 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "driver",
+            "otherEntityName": "driver",
+            "relationshipType": "one-to-one",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "medicalExamination"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "validate",
+            "fieldType": "LocalDate",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "changelogDate": "20180311150101",
+    "dto": "mapstruct",
+    "service": "serviceClass",
+    "entityTableName": "medical_examination",
+    "jpaMetamodelFiltering": false,
+    "pagination": "pagination"
+}

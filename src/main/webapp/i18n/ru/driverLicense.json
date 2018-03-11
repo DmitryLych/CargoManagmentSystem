@@ -1,0 +1,25 @@
+
+{
+    "cargoManagmentSystemApp": {
+        "driverLicense" : {
+            "home": {
+                "title": "Driver Licenses",
+                "createLabel": "Создать новый Driver License",
+                "createOrEditLabel": "Создать или отредактировать Driver License"
+            },
+            "created": "Новый Driver License создан с идентификатором {{ param }}",
+            "updated": "Driver License обновлен с идентификатором {{ param }}",
+            "deleted": "Driver License удален с идентификатором {{ param }}",
+            "delete": {
+                "question": "Вы уверены что хотите удалить Driver License {{ id }}?"
+            },
+            "detail": {
+                "title": "Driver License"
+            },
+            "category": "Category",
+            "validate": "Validate",
+            "specialNotes": "Special Notes",
+            "driver": "Driver"
+        }
+    }
+}

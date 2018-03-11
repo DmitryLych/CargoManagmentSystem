@@ -1,0 +1,91 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myOrderLabel" jhiTranslate="cargoManagmentSystemApp.order.home.createOrEditLabel">Create or edit a Order</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!order.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="order.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="cargoManagmentSystemApp.order.cost" for="field_cost">Cost</label>
+            <input type="number" class="form-control" name="cost" id="field_cost"
+                [(ngModel)]="order.cost" required/>
+            <div [hidden]="!(editForm.controls.cost?.dirty && editForm.controls.cost?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.cost?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.cost?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="cargoManagmentSystemApp.order.downloadAddress" for="field_downloadAddress">Download Address</label>
+            <input type="text" class="form-control" name="downloadAddress" id="field_downloadAddress"
+                [(ngModel)]="order.downloadAddress" required/>
+            <div [hidden]="!(editForm.controls.downloadAddress?.dirty && editForm.controls.downloadAddress?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.downloadAddress?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="cargoManagmentSystemApp.order.unloadingAddress" for="field_unloadingAddress">Unloading Address</label>
+            <input type="text" class="form-control" name="unloadingAddress" id="field_unloadingAddress"
+                [(ngModel)]="order.unloadingAddress" required/>
+            <div [hidden]="!(editForm.controls.unloadingAddress?.dirty && editForm.controls.unloadingAddress?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.unloadingAddress?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="cargoManagmentSystemApp.order.issued" for="field_issued">Issued</label>
+            <input type="checkbox" class="form-control" name="issued" id="field_issued"
+                [(ngModel)]="order.issued" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="cargoManagmentSystemApp.order.completed" for="field_completed">Completed</label>
+            <input type="checkbox" class="form-control" name="completed" id="field_completed"
+                [(ngModel)]="order.completed" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="cargoManagmentSystemApp.order.paid" for="field_paid">Paid</label>
+            <input type="checkbox" class="form-control" name="paid" id="field_paid"
+                [(ngModel)]="order.paid" />
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="cargoManagmentSystemApp.order.customer" for="field_customer">Customer</label>
+            <select class="form-control" id="field_customer" name="customer" [(ngModel)]="order.customerId" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="customerOption.id" *ngFor="let customerOption of customers; trackBy: trackCustomerById">{{customerOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="cargoManagmentSystemApp.order.driver" for="field_driver">Driver</label>
+            <select class="form-control" id="field_driver" name="driver" [(ngModel)]="order.driverId" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="driverOption.id" *ngFor="let driverOption of drivers; trackBy: trackDriverById">{{driverOption.id}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

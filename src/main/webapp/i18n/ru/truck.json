@@ -1,0 +1,27 @@
+
+{
+    "cargoManagmentSystemApp": {
+        "truck" : {
+            "home": {
+                "title": "Trucks",
+                "createLabel": "Создать новый Truck",
+                "createOrEditLabel": "Создать или отредактировать Truck"
+            },
+            "created": "Новый Truck создан с идентификатором {{ param }}",
+            "updated": "Truck обновлен с идентификатором {{ param }}",
+            "deleted": "Truck удален с идентификатором {{ param }}",
+            "delete": {
+                "question": "Вы уверены что хотите удалить Truck {{ id }}?"
+            },
+            "detail": {
+                "title": "Truck"
+            },
+            "registerSign": "Register Sign",
+            "bodyNumber": "Body Number",
+            "weight": "Weight",
+            "color": "Color",
+            "yearOfIssue": "Year Of Issue",
+            "trailer": "Trailer"
+        }
+    }
+}

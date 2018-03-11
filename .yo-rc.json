@@ -1,0 +1,59 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "com.lych.cargomanagementsystem",
+      "nativeLanguage": "en"
+    },
+    "jhipsterVersion": "4.14.1",
+    "baseName": "CargoManagmentSystem",
+    "packageName": "com.lych.cargomanagementsystem",
+    "packageFolder": "com/lych/cargomanagementsystem",
+    "serverPort": "8080",
+    "authenticationType": "jwt",
+    "cacheProvider": "ehcache",
+    "enableHibernateCache": true,
+    "websocket": false,
+    "databaseType": "sql",
+    "devDatabaseType": "postgresql",
+    "prodDatabaseType": "postgresql",
+    "searchEngine": false,
+    "messageBroker": false,
+    "serviceDiscoveryType": false,
+    "buildTool": "gradle",
+    "enableSocialSignIn": false,
+    "enableSwaggerCodegen": false,
+    "jwtSecretKey": "27ddddc174f5cbef611310307ba5ab15cf94ea60",
+    "clientFramework": "angularX",
+    "useSass": true,
+    "clientPackageManager": "yarn",
+    "applicationType": "monolith",
+    "testFrameworks": [],
+    "jhiPrefix": "jhi",
+    "otherModules": [
+      {
+        "name": "generator-jhipster-pages",
+        "version": "2.0.4"
+      },
+      {
+        "name": "generator-jhipster-bootstrap-material-design",
+        "version": "3.5.1"
+      },
+      {
+        "name": "generator-jhipster-elasticsearch-reindexer",
+        "version": "1.1.0"
+      },
+      {
+        "name": "generator-jhipster-nav-element",
+        "version": "1.4.19"
+      }
+    ],
+    "enableTranslation": true,
+    "nativeLanguage": "en",
+    "languages": [
+      "en",
+      "ru"
+    ],
+    "herokuDeployType": "jar",
+    "herokuAppName": "cargo-managment-system"
+  }
+}

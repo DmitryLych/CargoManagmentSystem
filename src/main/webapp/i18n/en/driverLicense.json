@@ -1,0 +1,25 @@
+
+{
+    "cargoManagmentSystemApp": {
+        "driverLicense" : {
+            "home": {
+                "title": "Driver Licenses",
+                "createLabel": "Create a new Driver License",
+                "createOrEditLabel": "Create or edit a Driver License"
+            },
+            "created": "A new Driver License is created with identifier {{ param }}",
+            "updated": "A Driver License is updated with identifier {{ param }}",
+            "deleted": "A Driver License is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Driver License {{ id }}?"
+            },
+            "detail": {
+                "title": "Driver License"
+            },
+            "category": "Category",
+            "validate": "Validate",
+            "specialNotes": "Special Notes",
+            "driver": "Driver"
+        }
+    }
+}

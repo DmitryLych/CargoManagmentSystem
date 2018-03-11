@@ -1,0 +1,70 @@
+<div>
+    <h2>
+        <span jhiTranslate="cargoManagmentSystemApp.driverLicense.home.title">Driver Licenses</span>
+        <button class="btn btn-primary float-right jh-create-entity create-driver-license" [routerLink]="['/', { outlets: { popup: ['driver-license-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span  jhiTranslate="cargoManagmentSystemApp.driverLicense.home.createLabel">
+            Create new Driver License
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="driverLicenses">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="category"><span jhiTranslate="cargoManagmentSystemApp.driverLicense.category">Category</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="validate"><span jhiTranslate="cargoManagmentSystemApp.driverLicense.validate">Validate</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="specialNotes"><span jhiTranslate="cargoManagmentSystemApp.driverLicense.specialNotes">Special Notes</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let driverLicense of driverLicenses ;trackBy: trackId">
+                <td><a [routerLink]="['../driver-license', driverLicense.id ]">{{driverLicense.id}}</a></td>
+                <td>{{driverLicense.category}}</td>
+                <td>{{driverLicense.validate | date:'mediumDate'}}</td>
+                <td>{{driverLicense.specialNotes}}</td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../driver-license', driverLicense.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'driver-license/'+ driverLicense.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'driver-license/'+ driverLicense.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="driverLicenses && driverLicenses.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,73 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "truck",
+            "otherEntityName": "truck",
+            "relationshipType": "one-to-one",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "trailer"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "registerSign",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "color",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "trailerType",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "weight",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "height",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "longest",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "volume",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "yearOfIssue",
+            "fieldType": "LocalDate",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "changelogDate": "20180311145427",
+    "dto": "mapstruct",
+    "service": "serviceClass",
+    "entityTableName": "trailer",
+    "jpaMetamodelFiltering": false,
+    "pagination": "pagination"
+}

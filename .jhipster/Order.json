@@ -1,0 +1,64 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "customer",
+            "otherEntityName": "customer",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipName": "goods",
+            "otherEntityName": "goods",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "order"
+        },
+        {
+            "relationshipName": "driver",
+            "otherEntityName": "driver",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "cost",
+            "fieldType": "BigDecimal",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "downloadAddress",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "unloadingAddress",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "issued",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "completed",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "paid",
+            "fieldType": "Boolean"
+        }
+    ],
+    "changelogDate": "20180311145901",
+    "dto": "mapstruct",
+    "service": "serviceClass",
+    "entityTableName": "jhi_order",
+    "jpaMetamodelFiltering": false,
+    "pagination": "pagination"
+}

@@ -1,0 +1,48 @@
+
+<div *ngIf="truck">
+    <h2><span jhiTranslate="cargoManagmentSystemApp.truck.detail.title">Truck</span> {{truck.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="cargoManagmentSystemApp.truck.registerSign">Register Sign</span></dt>
+        <dd>
+            <span>{{truck.registerSign}}</span>
+        </dd>
+        <dt><span jhiTranslate="cargoManagmentSystemApp.truck.bodyNumber">Body Number</span></dt>
+        <dd>
+            <span>{{truck.bodyNumber}}</span>
+        </dd>
+        <dt><span jhiTranslate="cargoManagmentSystemApp.truck.weight">Weight</span></dt>
+        <dd>
+            <span>{{truck.weight}}</span>
+        </dd>
+        <dt><span jhiTranslate="cargoManagmentSystemApp.truck.color">Color</span></dt>
+        <dd>
+            <span>{{truck.color}}</span>
+        </dd>
+        <dt><span jhiTranslate="cargoManagmentSystemApp.truck.yearOfIssue">Year Of Issue</span></dt>
+        <dd>
+            <span>{{truck.yearOfIssue | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="cargoManagmentSystemApp.truck.trailer">Trailer</span></dt>
+        <dd>
+            <div *ngIf="truck.trailerId">
+                <a [routerLink]="['/trailer', truck.trailerId]">{{truck.trailerId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'truck/'+ truck.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

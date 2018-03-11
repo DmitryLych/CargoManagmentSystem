@@ -1,0 +1,78 @@
+
+<div *ngIf="driver">
+    <h2><span jhiTranslate="cargoManagmentSystemApp.driver.detail.title">Driver</span> {{driver.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="cargoManagmentSystemApp.driver.firstName">First Name</span></dt>
+        <dd>
+            <span>{{driver.firstName}}</span>
+        </dd>
+        <dt><span jhiTranslate="cargoManagmentSystemApp.driver.lastName">Last Name</span></dt>
+        <dd>
+            <span>{{driver.lastName}}</span>
+        </dd>
+        <dt><span jhiTranslate="cargoManagmentSystemApp.driver.yearOfIssue">Year Of Issue</span></dt>
+        <dd>
+            <span>{{driver.yearOfIssue | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="cargoManagmentSystemApp.driver.address">Address</span></dt>
+        <dd>
+            <span>{{driver.address}}</span>
+        </dd>
+        <dt><span jhiTranslate="cargoManagmentSystemApp.driver.tepephoneNumber">Tepephone Number</span></dt>
+        <dd>
+            <span>{{driver.tepephoneNumber}}</span>
+        </dd>
+        <dt><span jhiTranslate="cargoManagmentSystemApp.driver.email">Email</span></dt>
+        <dd>
+            <span>{{driver.email}}</span>
+        </dd>
+        <dt><span jhiTranslate="cargoManagmentSystemApp.driver.status">Status</span></dt>
+        <dd>
+            <span>{{driver.status}}</span>
+        </dd>
+        <dt><span jhiTranslate="cargoManagmentSystemApp.driver.driverLicense">Driver License</span></dt>
+        <dd>
+            <div *ngIf="driver.driverLicenseId">
+                <a [routerLink]="['/driver-license', driver.driverLicenseId]">{{driver.driverLicenseId}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="cargoManagmentSystemApp.driver.medicalExamination">Medical Examination</span></dt>
+        <dd>
+            <div *ngIf="driver.medicalExaminationId">
+                <a [routerLink]="['/medical-examination', driver.medicalExaminationId]">{{driver.medicalExaminationId}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="cargoManagmentSystemApp.driver.truck">Truck</span></dt>
+        <dd>
+            <div *ngIf="driver.truckId">
+                <a [routerLink]="['/truck', driver.truckId]">{{driver.truckId}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="cargoManagmentSystemApp.driver.company">Company</span></dt>
+        <dd>
+            <div *ngIf="driver.companyId">
+                <a [routerLink]="['/company', driver.companyId]">{{driver.companyId}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="cargoManagmentSystemApp.driver.user">User</span></dt>
+        <dd>
+            {{driver.userLogin}}
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'driver/'+ driver.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

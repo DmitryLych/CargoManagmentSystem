@@ -1,0 +1,134 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myDriverLabel" jhiTranslate="cargoManagmentSystemApp.driver.home.createOrEditLabel">Create or edit a Driver</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!driver.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="driver.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="cargoManagmentSystemApp.driver.firstName" for="field_firstName">First Name</label>
+            <input type="text" class="form-control" name="firstName" id="field_firstName"
+                [(ngModel)]="driver.firstName" required/>
+            <div [hidden]="!(editForm.controls.firstName?.dirty && editForm.controls.firstName?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.firstName?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="cargoManagmentSystemApp.driver.lastName" for="field_lastName">Last Name</label>
+            <input type="text" class="form-control" name="lastName" id="field_lastName"
+                [(ngModel)]="driver.lastName" required/>
+            <div [hidden]="!(editForm.controls.lastName?.dirty && editForm.controls.lastName?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.lastName?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="cargoManagmentSystemApp.driver.yearOfIssue" for="field_yearOfIssue">Year Of Issue</label>
+            <div class="input-group">
+                <input id="field_yearOfIssue" type="text" class="form-control" name="yearOfIssue" ngbDatepicker  #yearOfIssueDp="ngbDatepicker" [(ngModel)]="driver.yearOfIssue"
+                required/>
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-secondary" (click)="yearOfIssueDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+            <div [hidden]="!(editForm.controls.yearOfIssue?.dirty && editForm.controls.yearOfIssue?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.yearOfIssue?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="cargoManagmentSystemApp.driver.address" for="field_address">Address</label>
+            <input type="text" class="form-control" name="address" id="field_address"
+                [(ngModel)]="driver.address" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="cargoManagmentSystemApp.driver.tepephoneNumber" for="field_tepephoneNumber">Tepephone Number</label>
+            <input type="text" class="form-control" name="tepephoneNumber" id="field_tepephoneNumber"
+                [(ngModel)]="driver.tepephoneNumber" required minlength="9"/>
+            <div [hidden]="!(editForm.controls.tepephoneNumber?.dirty && editForm.controls.tepephoneNumber?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.tepephoneNumber?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.tepephoneNumber?.errors?.minlength" jhiTranslate="entity.validation.minlength" translateValues="{ min: 9 }">
+                   This field is required to be at least 9 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="cargoManagmentSystemApp.driver.email" for="field_email">Email</label>
+            <input type="text" class="form-control" name="email" id="field_email"
+                [(ngModel)]="driver.email" pattern="(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|&#34;(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*&#34;)@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])"/>
+            <div [hidden]="!(editForm.controls.email?.dirty && editForm.controls.email?.invalid)">
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.email?.errors?.pattern" jhiTranslate="entity.validation.pattern" translateValues="{ pattern: 'Email' }">
+                    This field should follow pattern for "Email".
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="cargoManagmentSystemApp.driver.status" for="field_status">Status</label>
+            <input type="checkbox" class="form-control" name="status" id="field_status"
+                [(ngModel)]="driver.status" />
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="cargoManagmentSystemApp.driver.driverLicense" for="field_driverLicense">Driver License</label>
+            <select class="form-control" id="field_driverLicense" name="driverLicense" [(ngModel)]="driver.driverLicenseId">
+                <option [ngValue]="null"></option>
+                <option [ngValue]="driverLicenseOption.id" *ngFor="let driverLicenseOption of driverlicenses; trackBy: trackDriverLicenseById">{{driverLicenseOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="cargoManagmentSystemApp.driver.medicalExamination" for="field_medicalExamination">Medical Examination</label>
+            <select class="form-control" id="field_medicalExamination" name="medicalExamination" [(ngModel)]="driver.medicalExaminationId">
+                <option [ngValue]="null"></option>
+                <option [ngValue]="medicalExaminationOption.id" *ngFor="let medicalExaminationOption of medicalexaminations; trackBy: trackMedicalExaminationById">{{medicalExaminationOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="cargoManagmentSystemApp.driver.truck" for="field_truck">Truck</label>
+            <select class="form-control" id="field_truck" name="truck" [(ngModel)]="driver.truckId">
+                <option [ngValue]="null"></option>
+                <option [ngValue]="truckOption.id" *ngFor="let truckOption of trucks; trackBy: trackTruckById">{{truckOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="cargoManagmentSystemApp.driver.company" for="field_company">Company</label>
+            <select class="form-control" id="field_company" name="company" [(ngModel)]="driver.companyId" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="companyOption.id" *ngFor="let companyOption of companies; trackBy: trackCompanyById">{{companyOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="cargoManagmentSystemApp.driver.user" for="field_user">User</label>
+            <select class="form-control" id="field_user" name="user" [(ngModel)]="driver.userId" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="userOption.id" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.login}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

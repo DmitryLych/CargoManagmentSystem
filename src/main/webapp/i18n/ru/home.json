@@ -1,0 +1,16 @@
+{
+    "home": {
+        "title": "Добро пожаловать на сайт Cargo Managment System!",
+        "subtitle": "Система для работы с индустрией грузоперевозок.",
+        "logged": {
+            "message": "Вы вошли как пользователь \"{{username}}\"."
+        },
+        "question": "Если у Вас возникли вопросы по Cargo Managment System:",
+        "link": {
+            "homepage": "Cargo Managment System домашняя страница",
+            "developer": "Почта разработчика:  dmitriylych@gmail.com"
+        },
+        "like": "Если вам нравится JHipster, не забудьте дать нам звёздочку на",
+        "github": "GitHub"
+    }
+}

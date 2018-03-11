@@ -1,0 +1,124 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myTrailerLabel" jhiTranslate="cargoManagmentSystemApp.trailer.home.createOrEditLabel">Create or edit a Trailer</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!trailer.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="trailer.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="cargoManagmentSystemApp.trailer.registerSign" for="field_registerSign">Register Sign</label>
+            <input type="text" class="form-control" name="registerSign" id="field_registerSign"
+                [(ngModel)]="trailer.registerSign" required/>
+            <div [hidden]="!(editForm.controls.registerSign?.dirty && editForm.controls.registerSign?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.registerSign?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="cargoManagmentSystemApp.trailer.color" for="field_color">Color</label>
+            <input type="text" class="form-control" name="color" id="field_color"
+                [(ngModel)]="trailer.color" required/>
+            <div [hidden]="!(editForm.controls.color?.dirty && editForm.controls.color?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.color?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="cargoManagmentSystemApp.trailer.trailerType" for="field_trailerType">Trailer Type</label>
+            <input type="text" class="form-control" name="trailerType" id="field_trailerType"
+                [(ngModel)]="trailer.trailerType" required/>
+            <div [hidden]="!(editForm.controls.trailerType?.dirty && editForm.controls.trailerType?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.trailerType?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="cargoManagmentSystemApp.trailer.weight" for="field_weight">Weight</label>
+            <input type="number" class="form-control" name="weight" id="field_weight"
+                [(ngModel)]="trailer.weight" required/>
+            <div [hidden]="!(editForm.controls.weight?.dirty && editForm.controls.weight?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.weight?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.weight?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="cargoManagmentSystemApp.trailer.height" for="field_height">Height</label>
+            <input type="number" class="form-control" name="height" id="field_height"
+                [(ngModel)]="trailer.height" required/>
+            <div [hidden]="!(editForm.controls.height?.dirty && editForm.controls.height?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.height?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.height?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="cargoManagmentSystemApp.trailer.longest" for="field_longest">Longest</label>
+            <input type="number" class="form-control" name="longest" id="field_longest"
+                [(ngModel)]="trailer.longest" required/>
+            <div [hidden]="!(editForm.controls.longest?.dirty && editForm.controls.longest?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.longest?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.longest?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="cargoManagmentSystemApp.trailer.volume" for="field_volume">Volume</label>
+            <input type="number" class="form-control" name="volume" id="field_volume"
+                [(ngModel)]="trailer.volume" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="cargoManagmentSystemApp.trailer.yearOfIssue" for="field_yearOfIssue">Year Of Issue</label>
+            <div class="input-group">
+                <input id="field_yearOfIssue" type="text" class="form-control" name="yearOfIssue" ngbDatepicker  #yearOfIssueDp="ngbDatepicker" [(ngModel)]="trailer.yearOfIssue"
+                required/>
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-secondary" (click)="yearOfIssueDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+            <div [hidden]="!(editForm.controls.yearOfIssue?.dirty && editForm.controls.yearOfIssue?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.yearOfIssue?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>
