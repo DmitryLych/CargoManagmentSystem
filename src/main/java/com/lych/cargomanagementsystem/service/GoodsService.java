@@ -2,14 +2,19 @@ package com.lych.cargomanagementsystem.service;
 
 import com.lych.cargomanagementsystem.domain.Goods;
 import com.lych.cargomanagementsystem.repository.GoodsRepository;
+import com.lych.cargomanagementsystem.service.dto.CommonGoodsDTO;
 import com.lych.cargomanagementsystem.service.dto.GoodsDTO;
 import com.lych.cargomanagementsystem.service.mapper.GoodsMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 /**
@@ -54,6 +59,29 @@ public class GoodsService {
         log.debug("Request to get all Goods");
         return goodsRepository.findAll(pageable)
             .map(goodsMapper::toDto);
+    }
+
+    /**
+     * Get all the goods.
+     *
+     * @param pageable the pagination information
+     * @return the list of entities
+     */
+    @Transactional(readOnly = true)
+    public Page<CommonGoodsDTO> findAllByOrder(Pageable pageable, Long orderId) {
+        log.debug("Request to get all Goods");
+        final Page<Goods> goods = goodsRepository.findAllByOrderId(pageable, orderId);
+
+        final List<CommonGoodsDTO> content = goods.getContent().stream()
+            .map(g -> {
+                final CommonGoodsDTO dto = new CommonGoodsDTO();
+                dto.setId(g.getId());
+                dto.setName(g.getName());
+                return dto;
+            })
+            .collect(Collectors.toList());
+
+        return new PageImpl<>(content, pageable, goods.getTotalElements());
     }
 
     /**

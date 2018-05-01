@@ -1,6 +1,8 @@
 package com.lych.cargomanagementsystem.repository;
 
 import com.lych.cargomanagementsystem.domain.InsurancePolicy;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import org.springframework.data.jpa.repository.*;
@@ -13,4 +15,5 @@ import org.springframework.data.jpa.repository.*;
 @Repository
 public interface InsurancePolicyRepository extends JpaRepository<InsurancePolicy, Long> {
 
+    Page<InsurancePolicy> findAllByDriverId(Pageable pageable, Long driverId);
 }

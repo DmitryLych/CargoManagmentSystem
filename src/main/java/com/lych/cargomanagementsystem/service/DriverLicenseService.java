@@ -60,12 +60,24 @@ public class DriverLicenseService {
             .map(driverLicenseMapper::toDto);
     }
 
+    /**
+     * Get all the driverLicenses.
+     *
+     * @param driverId the pagination information
+     * @return the list of entities
+     */
+    @Transactional(readOnly = true)
+    public DriverLicenseDTO getByDriver(Long driverId) {
+        return driverLicenseMapper.toDto(driverLicenseRepository.findByDriverId(driverId));
+    }
+
 
     /**
-     *  get all the driverLicenses where Driver is null.
-     *  @return the list of entities
+     * get all the driverLicenses where Driver is null.
+     *
+     * @return the list of entities
      */
-    @Transactional(readOnly = true) 
+    @Transactional(readOnly = true)
     public List<DriverLicenseDTO> findAllWhereDriverIsNull() {
         log.debug("Request to get all driverLicenses where Driver is null");
         return StreamSupport

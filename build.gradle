@@ -142,6 +142,7 @@ repositories {
 }
 
 dependencies {
+    compileOnly('org.projectlombok:lombok')
     compile "org.springframework.boot:spring-boot-starter-cache"
     compile "io.github.jhipster:jhipster"
     compile "io.dropwizard.metrics:metrics-core"

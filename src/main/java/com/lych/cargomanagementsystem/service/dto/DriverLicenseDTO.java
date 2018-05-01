@@ -13,6 +13,8 @@ import java.util.Objects;
  */
 public class DriverLicenseDTO implements Serializable {
 
+    private static final long serialVersionUID = -8620807216874275299L;
+
     private Long id;
 
     @NotNull

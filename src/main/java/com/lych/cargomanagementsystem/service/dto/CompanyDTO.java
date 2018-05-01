@@ -12,6 +12,8 @@ import java.util.Objects;
  */
 public class CompanyDTO implements Serializable {
 
+    private static final long serialVersionUID = -6872915550790147785L;
+
     private Long id;
 
     @NotNull

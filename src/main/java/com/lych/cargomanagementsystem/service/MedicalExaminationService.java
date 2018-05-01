@@ -60,12 +60,25 @@ public class MedicalExaminationService {
             .map(medicalExaminationMapper::toDto);
     }
 
+    /**
+     * Get all the medicalExaminations.
+     *
+     * @param driverId the pagination information
+     * @return the list of entities
+     */
+    @Transactional(readOnly = true)
+    public MedicalExaminationDTO findByDriver(Long driverId) {
+        log.debug("Request to get all MedicalExaminations");
+        return medicalExaminationMapper.toDto(medicalExaminationRepository.findByDriverId(driverId));
+    }
+
 
     /**
-     *  get all the medicalExaminations where Driver is null.
-     *  @return the list of entities
+     * get all the medicalExaminations where Driver is null.
+     *
+     * @return the list of entities
      */
-    @Transactional(readOnly = true) 
+    @Transactional(readOnly = true)
     public List<MedicalExaminationDTO> findAllWhereDriverIsNull() {
         log.debug("Request to get all medicalExaminations where Driver is null");
         return StreamSupport

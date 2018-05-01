@@ -2,10 +2,10 @@ package com.lych.cargomanagementsystem.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.lych.cargomanagementsystem.service.DriverService;
+import com.lych.cargomanagementsystem.service.dto.DriverDTO;
 import com.lych.cargomanagementsystem.web.rest.errors.BadRequestAlertException;
 import com.lych.cargomanagementsystem.web.rest.util.HeaderUtil;
 import com.lych.cargomanagementsystem.web.rest.util.PaginationUtil;
-import com.lych.cargomanagementsystem.service.dto.DriverDTO;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,12 +14,18 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -94,6 +100,21 @@ public class DriverResource {
         log.debug("REST request to get a page of Drivers");
         Page<DriverDTO> page = driverService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/drivers");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
+    /**
+     * GET  /drivers : get all the drivers.
+     *
+     * @param pageable the pagination information
+     * @return the ResponseEntity with status 200 (OK) and the list of drivers in body
+     */
+    @GetMapping("/drivers/companies/{companyId}")
+    @Timed
+    public ResponseEntity<List<DriverDTO>> getAllDrivers(Pageable pageable, @PathVariable Long companyId) {
+        log.debug("REST request to get a page of Drivers");
+        Page<DriverDTO> page = driverService.findAllByCompany(pageable, companyId);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/drivers/companies/" + companyId);
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 

@@ -1,9 +1,12 @@
 package com.lych.cargomanagementsystem.repository;
 
 import com.lych.cargomanagementsystem.domain.Driver;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import org.springframework.data.jpa.repository.*;
 import java.util.List;
 
 /**
@@ -16,4 +19,5 @@ public interface DriverRepository extends JpaRepository<Driver, Long> {
     @Query("select driver from Driver driver where driver.user.login = ?#{principal.username}")
     List<Driver> findByUserIsCurrentUser();
 
+    Page<Driver> findAllByCompanyId(Pageable pageable, Long companyId);
 }

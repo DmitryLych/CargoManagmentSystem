@@ -2,14 +2,19 @@ package com.lych.cargomanagementsystem.service;
 
 import com.lych.cargomanagementsystem.domain.InsurancePolicy;
 import com.lych.cargomanagementsystem.repository.InsurancePolicyRepository;
+import com.lych.cargomanagementsystem.service.dto.CommonInsurancePolicyDTO;
 import com.lych.cargomanagementsystem.service.dto.InsurancePolicyDTO;
 import com.lych.cargomanagementsystem.service.mapper.InsurancePolicyMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 /**
@@ -54,6 +59,28 @@ public class InsurancePolicyService {
         log.debug("Request to get all InsurancePolicies");
         return insurancePolicyRepository.findAll(pageable)
             .map(insurancePolicyMapper::toDto);
+    }
+
+    /**
+     * Get all the insurancePolicies.
+     *
+     * @param pageable the pagination information
+     * @return the list of entities
+     */
+    @Transactional(readOnly = true)
+    public Page<CommonInsurancePolicyDTO> findAllByDriver(Pageable pageable, Long driverId) {
+        log.debug("Request to get all InsurancePolicies");
+        final Page<InsurancePolicy> insurancePolicies = insurancePolicyRepository.findAllByDriverId(pageable, driverId);
+
+        final List<CommonInsurancePolicyDTO> content = insurancePolicies.getContent().stream()
+            .map(insurancePolicy -> {
+                final CommonInsurancePolicyDTO dto = new CommonInsurancePolicyDTO();
+                dto.setId(insurancePolicy.getId());
+                dto.setType(insurancePolicy.getType());
+                return dto;
+            })
+            .collect(Collectors.toList());
+        return new PageImpl<>(content, pageable, insurancePolicies.getTotalElements());
     }
 
     /**

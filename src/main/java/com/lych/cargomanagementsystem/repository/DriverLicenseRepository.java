@@ -1,9 +1,8 @@
 package com.lych.cargomanagementsystem.repository;
 
 import com.lych.cargomanagementsystem.domain.DriverLicense;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
-import org.springframework.data.jpa.repository.*;
 
 
 /**
@@ -13,4 +12,5 @@ import org.springframework.data.jpa.repository.*;
 @Repository
 public interface DriverLicenseRepository extends JpaRepository<DriverLicense, Long> {
 
+    DriverLicense findByDriverId(Long driverId);
 }
