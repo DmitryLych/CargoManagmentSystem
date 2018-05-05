@@ -103,20 +103,20 @@ public class GoodsResource {
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
-    /**
-     * GET  /goods : get all the goods.
-     *
-     * @param pageable the pagination information
-     * @return the ResponseEntity with status 200 (OK) and the list of goods in body
-     */
-    @GetMapping("/goods/orders/{orderId}")
-    @Timed
-    public ResponseEntity<List<GoodsDTO>> getAllGoodsByOrder(Pageable pageable, @PathVariable Long orderId) {
-        log.debug("REST request to get a page of Goods");
-        Page<GoodsDTO> page = goodsService.findAllByOrder(pageable, orderId);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/goods/orders/" + orderId);
-        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
-    }
+//    /**
+//     * GET  /goods : get all the goods.
+//     *
+//     * @param pageable the pagination information
+//     * @return the ResponseEntity with status 200 (OK) and the list of goods in body
+//     */
+//    @GetMapping("/goods/orders/{orderId}")
+//    @Timed
+//    public ResponseEntity<List<GoodsDTO>> getAllGoodsByOrder(Pageable pageable, @PathVariable Long orderId) {
+//        log.debug("REST request to get a page of Goods");
+//        Page<GoodsDTO> page = goodsService.findAllByOrder(pageable, orderId);
+//        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/goods/orders/" + orderId);
+//        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+//    }
 
     /**
      * GET  /goods/:id : get the "id" goods.

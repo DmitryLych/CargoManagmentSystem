@@ -103,21 +103,21 @@ public class InsurancePolicyResource {
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
-    /**
-     * GET  /insurance-policies : get all the insurancePolicies.
-     *
-     * @param pageable the pagination information
-     * @return the ResponseEntity with status 200 (OK) and the list of insurancePolicies in body
-     */
-    @GetMapping("/insurance-policies/drivers/{driverId}")
-    @Timed
-    public ResponseEntity<List<InsurancePolicyDTO>> getAllInsurancePolicies(Pageable pageable, @PathVariable Long driverId) {
-        log.debug("REST request to get a page of InsurancePolicies");
-        Page<InsurancePolicyDTO> page = insurancePolicyService.findAllByDriver(pageable, driverId);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/insurance-policies/drivers/"
-            + driverId);
-        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
-    }
+//    /**
+//     * GET  /insurance-policies : get all the insurancePolicies.
+//     *
+//     * @param pageable the pagination information
+//     * @return the ResponseEntity with status 200 (OK) and the list of insurancePolicies in body
+//     */
+//    @GetMapping("/insurance-policies/drivers/{driverId}")
+//    @Timed
+//    public ResponseEntity<List<InsurancePolicyDTO>> getAllInsurancePolicies(Pageable pageable, @PathVariable Long driverId) {
+//        log.debug("REST request to get a page of InsurancePolicies");
+//        Page<InsurancePolicyDTO> page = insurancePolicyService.findAllByDriver(pageable, driverId);
+//        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/insurance-policies/drivers/"
+//            + driverId);
+//        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+//    }
 
     /**
      * GET  /insurance-policies/:id : get the "id" insurancePolicy.

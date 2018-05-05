@@ -103,20 +103,20 @@ public class DriverResource {
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
-    /**
-     * GET  /drivers : get all the drivers.
-     *
-     * @param pageable the pagination information
-     * @return the ResponseEntity with status 200 (OK) and the list of drivers in body
-     */
-    @GetMapping("/drivers/companies/{companyId}")
-    @Timed
-    public ResponseEntity<List<DriverDTO>> getAllDrivers(Pageable pageable, @PathVariable Long companyId) {
-        log.debug("REST request to get a page of Drivers");
-        Page<DriverDTO> page = driverService.findAllByCompany(pageable, companyId);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/drivers/companies/" + companyId);
-        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
-    }
+//    /**
+//     * GET  /drivers : get all the drivers.
+//     *
+//     * @param pageable the pagination information
+//     * @return the ResponseEntity with status 200 (OK) and the list of drivers in body
+//     */
+//    @GetMapping("/drivers/companies/{companyId}")
+//    @Timed
+//    public ResponseEntity<List<DriverDTO>> getAllDrivers(Pageable pageable, @PathVariable Long companyId) {
+//        log.debug("REST request to get a page of Drivers");
+//        Page<DriverDTO> page = driverService.findAllByCompany(pageable, companyId);
+//        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/drivers/companies/" + companyId);
+//        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+//    }
 
     /**
      * GET  /drivers/:id : get the "id" driver.

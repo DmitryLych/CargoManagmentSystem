@@ -2,10 +2,11 @@ package com.lych.cargomanagementsystem.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.lych.cargomanagementsystem.service.CompanyService;
+import com.lych.cargomanagementsystem.service.dto.CompanyDTO;
+import com.lych.cargomanagementsystem.service.dto.DetailCompanyDTO;
 import com.lych.cargomanagementsystem.web.rest.errors.BadRequestAlertException;
 import com.lych.cargomanagementsystem.web.rest.util.HeaderUtil;
 import com.lych.cargomanagementsystem.web.rest.util.PaginationUtil;
-import com.lych.cargomanagementsystem.service.dto.CompanyDTO;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,12 +15,18 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -76,7 +83,7 @@ public class CompanyResource {
         if (companyDTO.getId() == null) {
             return createCompany(companyDTO);
         }
-        CompanyDTO result = companyService.save(companyDTO);
+        CompanyDTO result = companyService.update(companyDTO);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, companyDTO.getId().toString()))
             .body(result);
@@ -105,9 +112,9 @@ public class CompanyResource {
      */
     @GetMapping("/companies/{id}")
     @Timed
-    public ResponseEntity<CompanyDTO> getCompany(@PathVariable Long id) {
+    public ResponseEntity<DetailCompanyDTO> getCompany(@PathVariable Long id) {
         log.debug("REST request to get Company : {}", id);
-        CompanyDTO companyDTO = companyService.findOne(id);
+        DetailCompanyDTO companyDTO = companyService.findOne(id);
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(companyDTO));
     }
 

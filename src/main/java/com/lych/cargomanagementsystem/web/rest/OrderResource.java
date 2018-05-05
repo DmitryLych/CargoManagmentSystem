@@ -103,35 +103,35 @@ public class OrderResource {
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
-    /**
-     * GET  /orders : get all the orders.
-     *
-     * @param pageable the pagination information
-     * @return the ResponseEntity with status 200 (OK) and the list of orders in body
-     */
-    @GetMapping("/orders/customers/{customerId}")
-    @Timed
-    public ResponseEntity<List<OrderDTO>> getAllByCustomer(Pageable pageable, @PathVariable Long customerId) {
-        log.debug("REST request to get a page of Orders");
-        Page<OrderDTO> page = orderService.findAllByCustomer(pageable, customerId);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/orders/customers/" + customerId);
-        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
-    }
+//    /**
+//     * GET  /orders : get all the orders.
+//     *
+//     * @param pageable the pagination information
+//     * @return the ResponseEntity with status 200 (OK) and the list of orders in body
+//     */
+//    @GetMapping("/orders/customers/{customerId}")
+//    @Timed
+//    public ResponseEntity<List<OrderDTO>> getAllByCustomer(Pageable pageable, @PathVariable Long customerId) {
+//        log.debug("REST request to get a page of Orders");
+//        Page<OrderDTO> page = orderService.findAllByCustomer(pageable, customerId);
+//        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/orders/customers/" + customerId);
+//        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+//    }
 
-    /**
-     * GET  /orders : get all the orders.
-     *
-     * @param pageable the pagination information
-     * @return the ResponseEntity with status 200 (OK) and the list of orders in body
-     */
-    @GetMapping("/orders/drivers/{driverId}")
-    @Timed
-    public ResponseEntity<List<OrderDTO>> getAllByDriver(Pageable pageable, @PathVariable Long driverId) {
-        log.debug("REST request to get a page of Orders");
-        Page<OrderDTO> page = orderService.findAllByDriver(pageable, driverId);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/orders/drivers/" + driverId);
-        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
-    }
+//    /**
+//     * GET  /orders : get all the orders.
+//     *
+//     * @param pageable the pagination information
+//     * @return the ResponseEntity with status 200 (OK) and the list of orders in body
+//     */
+//    @GetMapping("/orders/drivers/{driverId}")
+//    @Timed
+//    public ResponseEntity<List<OrderDTO>> getAllByDriver(Pageable pageable, @PathVariable Long driverId) {
+//        log.debug("REST request to get a page of Orders");
+//        //Page<OrderDTO> page = orderService.findAllByDriver(pageable, driverId);
+//        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/orders/drivers/" + driverId);
+//        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+//    }
 
     /**
      * GET  /orders/:id : get the "id" order.

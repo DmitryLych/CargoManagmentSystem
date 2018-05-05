@@ -35,5 +35,5 @@ public class TargetCompanyDTO implements Serializable {
 
     private String userLogin;
 
-    private List<CommonDriverDTO> drivers;
+    private List<SearchDriverDTO> drivers;
 }
