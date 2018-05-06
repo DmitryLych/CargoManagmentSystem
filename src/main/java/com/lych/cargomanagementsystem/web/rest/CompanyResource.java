@@ -2,6 +2,7 @@ package com.lych.cargomanagementsystem.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.lych.cargomanagementsystem.service.CompanyService;
+import com.lych.cargomanagementsystem.service.dto.CommonCompanyDTO;
 import com.lych.cargomanagementsystem.service.dto.CompanyDTO;
 import com.lych.cargomanagementsystem.service.dto.DetailCompanyDTO;
 import com.lych.cargomanagementsystem.web.rest.errors.BadRequestAlertException;
@@ -56,12 +57,12 @@ public class CompanyResource {
      */
     @PostMapping("/companies")
     @Timed
-    public ResponseEntity<CompanyDTO> createCompany(@Valid @RequestBody CompanyDTO companyDTO) throws URISyntaxException {
+    public ResponseEntity<CommonCompanyDTO> createCompany(@Valid @RequestBody CompanyDTO companyDTO) throws URISyntaxException {
         log.debug("REST request to save Company : {}", companyDTO);
         if (companyDTO.getId() != null) {
             throw new BadRequestAlertException("A new company cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        CompanyDTO result = companyService.save(companyDTO);
+        CommonCompanyDTO result = companyService.save(companyDTO);
         return ResponseEntity.created(new URI("/api/companies/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -78,12 +79,12 @@ public class CompanyResource {
      */
     @PutMapping("/companies")
     @Timed
-    public ResponseEntity<CompanyDTO> updateCompany(@Valid @RequestBody CompanyDTO companyDTO) throws URISyntaxException {
+    public ResponseEntity<CommonCompanyDTO> updateCompany(@Valid @RequestBody CompanyDTO companyDTO) throws URISyntaxException {
         log.debug("REST request to update Company : {}", companyDTO);
         if (companyDTO.getId() == null) {
             return createCompany(companyDTO);
         }
-        CompanyDTO result = companyService.update(companyDTO);
+        CommonCompanyDTO result = companyService.update(companyDTO);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, companyDTO.getId().toString()))
             .body(result);
@@ -97,9 +98,9 @@ public class CompanyResource {
      */
     @GetMapping("/companies")
     @Timed
-    public ResponseEntity<List<CompanyDTO>> getAllCompanies(Pageable pageable) {
+    public ResponseEntity<List<CommonCompanyDTO>> getAllCompanies(Pageable pageable) {
         log.debug("REST request to get a page of Companies");
-        Page<CompanyDTO> page = companyService.findAll(pageable);
+        Page<CommonCompanyDTO> page = companyService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/companies");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
