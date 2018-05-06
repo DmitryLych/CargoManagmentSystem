@@ -2,10 +2,12 @@ package com.lych.cargomanagementsystem.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.lych.cargomanagementsystem.service.CustomerService;
+import com.lych.cargomanagementsystem.service.dto.CommonCustomerDTO;
+import com.lych.cargomanagementsystem.service.dto.CustomerDTO;
+import com.lych.cargomanagementsystem.service.dto.DetailCustomerDTO;
 import com.lych.cargomanagementsystem.web.rest.errors.BadRequestAlertException;
 import com.lych.cargomanagementsystem.web.rest.util.HeaderUtil;
 import com.lych.cargomanagementsystem.web.rest.util.PaginationUtil;
-import com.lych.cargomanagementsystem.service.dto.CustomerDTO;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,12 +16,18 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -49,12 +57,12 @@ public class CustomerResource {
      */
     @PostMapping("/customers")
     @Timed
-    public ResponseEntity<CustomerDTO> createCustomer(@Valid @RequestBody CustomerDTO customerDTO) throws URISyntaxException {
+    public ResponseEntity<CommonCustomerDTO> createCustomer(@Valid @RequestBody CustomerDTO customerDTO) throws URISyntaxException {
         log.debug("REST request to save Customer : {}", customerDTO);
         if (customerDTO.getId() != null) {
             throw new BadRequestAlertException("A new customer cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        CustomerDTO result = customerService.save(customerDTO);
+        CommonCustomerDTO result = customerService.save(customerDTO);
         return ResponseEntity.created(new URI("/api/customers/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -71,12 +79,12 @@ public class CustomerResource {
      */
     @PutMapping("/customers")
     @Timed
-    public ResponseEntity<CustomerDTO> updateCustomer(@Valid @RequestBody CustomerDTO customerDTO) throws URISyntaxException {
+    public ResponseEntity<CommonCustomerDTO> updateCustomer(@Valid @RequestBody CustomerDTO customerDTO) throws URISyntaxException {
         log.debug("REST request to update Customer : {}", customerDTO);
         if (customerDTO.getId() == null) {
             return createCustomer(customerDTO);
         }
-        CustomerDTO result = customerService.save(customerDTO);
+        CommonCustomerDTO result = customerService.save(customerDTO);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, customerDTO.getId().toString()))
             .body(result);
@@ -90,9 +98,9 @@ public class CustomerResource {
      */
     @GetMapping("/customers")
     @Timed
-    public ResponseEntity<List<CustomerDTO>> getAllCustomers(Pageable pageable) {
+    public ResponseEntity<List<CommonCustomerDTO>> getAllCustomers(Pageable pageable) {
         log.debug("REST request to get a page of Customers");
-        Page<CustomerDTO> page = customerService.findAll(pageable);
+        Page<CommonCustomerDTO> page = customerService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/customers");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
@@ -105,9 +113,9 @@ public class CustomerResource {
      */
     @GetMapping("/customers/{id}")
     @Timed
-    public ResponseEntity<CustomerDTO> getCustomer(@PathVariable Long id) {
+    public ResponseEntity<DetailCustomerDTO> getCustomer(@PathVariable Long id) {
         log.debug("REST request to get Customer : {}", id);
-        CustomerDTO customerDTO = customerService.findOne(id);
+        DetailCustomerDTO customerDTO = customerService.findOne(id);
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(customerDTO));
     }
 
