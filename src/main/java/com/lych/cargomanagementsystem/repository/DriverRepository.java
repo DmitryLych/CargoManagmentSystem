@@ -21,5 +21,11 @@ public interface DriverRepository extends JpaRepository<Driver, Long> {
 
     Page<Driver> findAllByCompanyId(Pageable pageable, Long companyId);
 
+    List<Driver> findAllByCompanyId(Long companyId);
+
+    List<Driver> findAllByUserId(Long userID);
+
+    Page<Driver> findAllByCompanyUserId(Pageable pageable, Long companyId);
+
     void deleteAllByCompanyId(Long companyId);
 }

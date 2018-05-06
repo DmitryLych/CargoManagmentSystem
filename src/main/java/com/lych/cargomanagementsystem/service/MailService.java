@@ -1,12 +1,12 @@
 package com.lych.cargomanagementsystem.service;
 
 import com.lych.cargomanagementsystem.domain.User;
-
 import io.github.jhipster.config.JHipsterProperties;
-
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.CharEncoding;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -24,6 +24,7 @@ import java.util.Locale;
  * We use the @Async annotation to send emails asynchronously.
  */
 @Service
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class MailService {
 
     private final Logger log = LoggerFactory.getLogger(MailService.class);
@@ -39,15 +40,6 @@ public class MailService {
     private final MessageSource messageSource;
 
     private final SpringTemplateEngine templateEngine;
-
-    public MailService(JHipsterProperties jHipsterProperties, JavaMailSender javaMailSender,
-            MessageSource messageSource, SpringTemplateEngine templateEngine) {
-
-        this.jHipsterProperties = jHipsterProperties;
-        this.javaMailSender = javaMailSender;
-        this.messageSource = messageSource;
-        this.templateEngine = templateEngine;
-    }
 
     @Async
     public void sendEmail(String to, String subject, String content, boolean isMultipart, boolean isHtml) {

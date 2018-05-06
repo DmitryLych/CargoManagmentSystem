@@ -24,7 +24,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Set;
 
 import static java.util.stream.Collectors.toList;
 
@@ -112,7 +111,7 @@ public class CompanyService {
     public DetailCompanyDTO findOne(Long id) {
         log.debug("Request to get Company : {}", id);
         Company company = companyRepository.findOne(id);
-        final Set<Driver> drivers = company.getDrivers();
+        final List<Driver> drivers = driverRepository.findAllByCompanyId(id);
         final List<SearchDriverDTO> searchDriverDTOS = drivers.stream()
             .map(driver -> {
                 final SearchDriverDTO searchDriverDTO = new SearchDriverDTO();

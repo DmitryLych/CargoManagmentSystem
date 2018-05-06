@@ -62,34 +62,6 @@ public class OrderService {
     }
 
     /**
-     * Get all the orders.
-     *
-     * @param pageable the pagination information
-     * @return the list of entities
-     */
-    @Transactional(readOnly = true)
-    public Page<CommonOrderDTO> findAllByDriver(Pageable pageable, Long driverId) {
-        log.debug("Request to get all Orders");
-        final Page<Order> orders = orderRepository.findAllByDriverId(pageable, driverId);
-
-        return new PageImpl<>(prepare(orders.getContent()), pageable, orders.getTotalElements());
-    }
-
-    /**
-     * Get all the orders.
-     *
-     * @param pageable the pagination information
-     * @return the list of entities
-     */
-    @Transactional(readOnly = true)
-    public Page<CommonOrderDTO> findAllByCustomer(Pageable pageable, Long customerId) {
-        log.debug("Request to get all Orders");
-        final Page<Order> orders = orderRepository.findAllByCustomerId(pageable, customerId);
-
-        return new PageImpl<>(prepare(orders.getContent()), pageable, orders.getTotalElements());
-    }
-
-    /**
      * Get one order by id.
      *
      * @param id the id of the entity

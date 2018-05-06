@@ -1,12 +1,15 @@
 package com.lych.cargomanagementsystem.service;
 
 import com.lych.cargomanagementsystem.domain.InsurancePolicy;
+import com.lych.cargomanagementsystem.domain.User;
 import com.lych.cargomanagementsystem.repository.InsurancePolicyRepository;
 import com.lych.cargomanagementsystem.service.dto.CommonInsurancePolicyDTO;
 import com.lych.cargomanagementsystem.service.dto.InsurancePolicyDTO;
 import com.lych.cargomanagementsystem.service.mapper.InsurancePolicyMapper;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -21,6 +24,7 @@ import java.util.stream.Collectors;
  * Service Implementation for managing InsurancePolicy.
  */
 @Service
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 @Transactional
 public class InsurancePolicyService {
 
@@ -29,11 +33,7 @@ public class InsurancePolicyService {
     private final InsurancePolicyRepository insurancePolicyRepository;
 
     private final InsurancePolicyMapper insurancePolicyMapper;
-
-    public InsurancePolicyService(InsurancePolicyRepository insurancePolicyRepository, InsurancePolicyMapper insurancePolicyMapper) {
-        this.insurancePolicyRepository = insurancePolicyRepository;
-        this.insurancePolicyMapper = insurancePolicyMapper;
-    }
+    private final UserProvider userProvider;
 
     /**
      * Save a insurancePolicy.
@@ -59,28 +59,6 @@ public class InsurancePolicyService {
         log.debug("Request to get all InsurancePolicies");
         return insurancePolicyRepository.findAll(pageable)
             .map(insurancePolicyMapper::toDto);
-    }
-
-    /**
-     * Get all the insurancePolicies.
-     *
-     * @param pageable the pagination information
-     * @return the list of entities
-     */
-    @Transactional(readOnly = true)
-    public Page<CommonInsurancePolicyDTO> findAllByDriver(Pageable pageable, Long driverId) {
-        log.debug("Request to get all InsurancePolicies");
-        final Page<InsurancePolicy> insurancePolicies = insurancePolicyRepository.findAllByDriverId(pageable, driverId);
-
-        final List<CommonInsurancePolicyDTO> content = insurancePolicies.getContent().stream()
-            .map(insurancePolicy -> {
-                final CommonInsurancePolicyDTO dto = new CommonInsurancePolicyDTO();
-                dto.setId(insurancePolicy.getId());
-                dto.setType(insurancePolicy.getType());
-                return dto;
-            })
-            .collect(Collectors.toList());
-        return new PageImpl<>(content, pageable, insurancePolicies.getTotalElements());
     }
 
     /**

@@ -111,19 +111,6 @@ public class DriverLicenseResource {
     }
 
     /**
-     * GET  /driver-licenses : get all the driverLicenses.
-     *
-     * @param driverId the filter of the request
-     * @return the ResponseEntity with status 200 (OK) and the list of driverLicenses in body
-     */
-    @GetMapping("/driver-licenses/driver/{driverId}")
-    @Timed
-    public ResponseEntity<DriverLicenseDTO> getDriverLicenseByDriver(@PathVariable final Long driverId) {
-        final DriverLicenseDTO driverLicenseDTO = driverLicenseService.getByDriver(driverId);
-        return new ResponseEntity<>(driverLicenseDTO, HttpStatus.OK);
-    }
-
-    /**
      * GET  /driver-licenses/:id : get the "id" driverLicense.
      *
      * @param id the id of the driverLicenseDTO to retrieve

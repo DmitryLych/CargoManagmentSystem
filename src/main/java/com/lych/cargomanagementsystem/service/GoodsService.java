@@ -1,26 +1,29 @@
 package com.lych.cargomanagementsystem.service;
 
 import com.lych.cargomanagementsystem.domain.Goods;
+import com.lych.cargomanagementsystem.domain.User;
 import com.lych.cargomanagementsystem.repository.GoodsRepository;
-import com.lych.cargomanagementsystem.service.dto.CommonGoodsDTO;
+import com.lych.cargomanagementsystem.security.AuthoritiesConstants;
 import com.lych.cargomanagementsystem.service.dto.GoodsDTO;
 import com.lych.cargomanagementsystem.service.mapper.GoodsMapper;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Collections;
 
 
 /**
  * Service Implementation for managing Goods.
  */
 @Service
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 @Transactional
 public class GoodsService {
 
@@ -29,11 +32,7 @@ public class GoodsService {
     private final GoodsRepository goodsRepository;
 
     private final GoodsMapper goodsMapper;
-
-    public GoodsService(GoodsRepository goodsRepository, GoodsMapper goodsMapper) {
-        this.goodsRepository = goodsRepository;
-        this.goodsMapper = goodsMapper;
-    }
+    private final UserProvider userProvider;
 
     /**
      * Save a goods.
@@ -56,32 +55,19 @@ public class GoodsService {
      */
     @Transactional(readOnly = true)
     public Page<GoodsDTO> findAll(Pageable pageable) {
+        final User user = userProvider.getCurrentUser();
+        if (user.getAuthorities().stream().anyMatch(authority -> authority.getName().equals(AuthoritiesConstants.ADMIN))) {
+            return goodsRepository.findAll(pageable)
+                .map(goodsMapper::toDto);
+        }
         log.debug("Request to get all Goods");
-        return goodsRepository.findAll(pageable)
-            .map(goodsMapper::toDto);
-    }
-
-    /**
-     * Get all the goods.
-     *
-     * @param pageable the pagination information
-     * @return the list of entities
-     */
-    @Transactional(readOnly = true)
-    public Page<CommonGoodsDTO> findAllByOrder(Pageable pageable, Long orderId) {
-        log.debug("Request to get all Goods");
-        final Page<Goods> goods = goodsRepository.findAllByOrderId(pageable, orderId);
-
-        final List<CommonGoodsDTO> content = goods.getContent().stream()
-            .map(g -> {
-                final CommonGoodsDTO dto = new CommonGoodsDTO();
-                dto.setId(g.getId());
-                dto.setName(g.getName());
-                return dto;
-            })
-            .collect(Collectors.toList());
-
-        return new PageImpl<>(content, pageable, goods.getTotalElements());
+        if (user.getAuthorities().stream().anyMatch(authority -> authority.getName().equals(AuthoritiesConstants.DRIVER))) {
+            return goodsRepository.findAllByOrderDriverUserId(user.getId(), pageable).map(goodsMapper::toDto);
+        }
+        if (user.getAuthorities().stream().anyMatch(authority -> authority.getName().equals(AuthoritiesConstants.CUSTOMER))) {
+            return goodsRepository.findAllByOrderCustomerUserId(user.getId(), pageable).map(goodsMapper::toDto);
+        }
+        return new PageImpl<>(Collections.emptyList(), pageable, 0);
     }
 
     /**

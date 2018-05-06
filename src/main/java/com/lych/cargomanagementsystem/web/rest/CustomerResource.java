@@ -84,7 +84,7 @@ public class CustomerResource {
         if (customerDTO.getId() == null) {
             return createCustomer(customerDTO);
         }
-        CommonCustomerDTO result = customerService.save(customerDTO);
+        CommonCustomerDTO result = customerService.update(customerDTO);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, customerDTO.getId().toString()))
             .body(result);

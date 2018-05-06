@@ -5,7 +5,6 @@ import com.lych.cargomanagementsystem.domain.User;
 import com.lych.cargomanagementsystem.repository.CustomerRepository;
 import com.lych.cargomanagementsystem.repository.OrderRepository;
 import com.lych.cargomanagementsystem.security.AuthoritiesConstants;
-import com.lych.cargomanagementsystem.service.dto.CommonCompanyDTO;
 import com.lych.cargomanagementsystem.service.dto.CommonCustomerDTO;
 import com.lych.cargomanagementsystem.service.dto.CustomerDTO;
 import com.lych.cargomanagementsystem.service.dto.DetailCustomerDTO;
@@ -40,7 +39,6 @@ public class CustomerService {
 
     private final CustomerRepository customerRepository;
     private final DozerBeanMapper dozerBeanMapper;
-    private final CustomerMapper customerMapper;
     private final UserProvider userProvider;
     private final OrderRepository orderRepository;
 
@@ -65,13 +63,13 @@ public class CustomerService {
      * @param customerDTO the entity to save
      * @return the persisted entity
      */
-    public CommonCompanyDTO update(CustomerDTO customerDTO) {
+    public CommonCustomerDTO update(CustomerDTO customerDTO) {
         log.debug("Request to save Customer : {}", customerDTO);
         final Customer found = customerRepository.findOne(customerDTO.getId());
         Customer customer = dozerBeanMapper.map(customerDTO, Customer.class);
         customer.setUser(found.getUser());
         customer = customerRepository.save(customer);
-        return dozerBeanMapper.map(customer, CommonCompanyDTO.class);
+        return dozerBeanMapper.map(customer, CommonCustomerDTO.class);
     }
 
     /**

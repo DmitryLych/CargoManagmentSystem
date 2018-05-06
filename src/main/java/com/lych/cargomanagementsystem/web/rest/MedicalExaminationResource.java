@@ -111,18 +111,6 @@ public class MedicalExaminationResource {
     }
 
     /**
-     * GET  /medical-examinations : get all the medicalExaminations.
-     *
-     * @param driverId the pagination information
-     * @return the ResponseEntity with status 200 (OK) and the list of medicalExaminations in body
-     */
-    @GetMapping("/medical-examinations/driver/{driverId}")
-    @Timed
-    public ResponseEntity<MedicalExaminationDTO> getMedicalExaminationsByDriver(@PathVariable Long driverId) {
-        return new ResponseEntity<>(medicalExaminationService.findByDriver(driverId), HttpStatus.OK);
-    }
-
-    /**
      * GET  /medical-examinations/:id : get the "id" medicalExamination.
      *
      * @param id the id of the medicalExaminationDTO to retrieve

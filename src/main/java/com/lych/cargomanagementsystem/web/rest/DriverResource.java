@@ -2,13 +2,17 @@ package com.lych.cargomanagementsystem.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.lych.cargomanagementsystem.service.DriverService;
+import com.lych.cargomanagementsystem.service.dto.CommonDriverDTO;
+import com.lych.cargomanagementsystem.service.dto.DetailDriverDTO;
 import com.lych.cargomanagementsystem.service.dto.DriverDTO;
 import com.lych.cargomanagementsystem.web.rest.errors.BadRequestAlertException;
 import com.lych.cargomanagementsystem.web.rest.util.HeaderUtil;
 import com.lych.cargomanagementsystem.web.rest.util.PaginationUtil;
-import io.github.jhipster.web.util.ResponseUtil;
+import lombok.RequiredArgsConstructor;
+import org.dozer.DozerBeanMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
@@ -27,12 +31,12 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * REST controller for managing Driver.
  */
 @RestController
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 @RequestMapping("/api")
 public class DriverResource {
 
@@ -41,10 +45,7 @@ public class DriverResource {
     private static final String ENTITY_NAME = "driver";
 
     private final DriverService driverService;
-
-    public DriverResource(DriverService driverService) {
-        this.driverService = driverService;
-    }
+    private final DozerBeanMapper dozerBeanMapper;
 
     /**
      * POST  /drivers : Create a new driver.
@@ -55,12 +56,12 @@ public class DriverResource {
      */
     @PostMapping("/drivers")
     @Timed
-    public ResponseEntity<DriverDTO> createDriver(@Valid @RequestBody DriverDTO driverDTO) throws URISyntaxException {
+    public ResponseEntity<CommonDriverDTO> createDriver(@Valid @RequestBody DriverDTO driverDTO) throws URISyntaxException {
         log.debug("REST request to save Driver : {}", driverDTO);
         if (driverDTO.getId() != null) {
             throw new BadRequestAlertException("A new driver cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        DriverDTO result = driverService.save(driverDTO);
+        CommonDriverDTO result = driverService.save(driverDTO);
         return ResponseEntity.created(new URI("/api/drivers/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -77,12 +78,12 @@ public class DriverResource {
      */
     @PutMapping("/drivers")
     @Timed
-    public ResponseEntity<DriverDTO> updateDriver(@Valid @RequestBody DriverDTO driverDTO) throws URISyntaxException {
+    public ResponseEntity<CommonDriverDTO> updateDriver(@Valid @RequestBody DriverDTO driverDTO) throws URISyntaxException {
         log.debug("REST request to update Driver : {}", driverDTO);
         if (driverDTO.getId() == null) {
             return createDriver(driverDTO);
         }
-        DriverDTO result = driverService.save(driverDTO);
+        CommonDriverDTO result = driverService.update(driverDTO);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, driverDTO.getId().toString()))
             .body(result);
@@ -96,27 +97,12 @@ public class DriverResource {
      */
     @GetMapping("/drivers")
     @Timed
-    public ResponseEntity<List<DriverDTO>> getAllDrivers(Pageable pageable) {
+    public ResponseEntity<List<CommonDriverDTO>> getAllDrivers(Pageable pageable) {
         log.debug("REST request to get a page of Drivers");
-        Page<DriverDTO> page = driverService.findAll(pageable);
+        Page<CommonDriverDTO> page = driverService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/drivers");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
-
-//    /**
-//     * GET  /drivers : get all the drivers.
-//     *
-//     * @param pageable the pagination information
-//     * @return the ResponseEntity with status 200 (OK) and the list of drivers in body
-//     */
-//    @GetMapping("/drivers/companies/{companyId}")
-//    @Timed
-//    public ResponseEntity<List<DriverDTO>> getAllDrivers(Pageable pageable, @PathVariable Long companyId) {
-//        log.debug("REST request to get a page of Drivers");
-//        Page<DriverDTO> page = driverService.findAllByCompany(pageable, companyId);
-//        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/drivers/companies/" + companyId);
-//        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
-//    }
 
     /**
      * GET  /drivers/:id : get the "id" driver.
@@ -126,10 +112,9 @@ public class DriverResource {
      */
     @GetMapping("/drivers/{id}")
     @Timed
-    public ResponseEntity<DriverDTO> getDriver(@PathVariable Long id) {
+    public ResponseEntity getDriver(@PathVariable Long id) {
         log.debug("REST request to get Driver : {}", id);
-        DriverDTO driverDTO = driverService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(driverDTO));
+        return ResponseEntity.ok(driverService.findOne(id));
     }
 
     /**
